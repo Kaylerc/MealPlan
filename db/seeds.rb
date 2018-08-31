@@ -5,3 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+prices = ('10.00'..'99.00').to_a
+
+
+30.times {
+  product = Product.new(
+    name: Faker::Food.dish,
+    description: Faker::Food.description,
+    price: prices.shuffle[0]
+  )
+  match = Product.find_by(name: product.name)
+  if !match
+    p product.price
+    product.save
+  end
+}
